@@ -187,7 +187,7 @@ MonoBehaviour:
   VirusObjects:
   - {fileID: 9110257800386785415, guid: d26d4b6e107cc42419000335a414ce6e, type: 3}
   notVirusObjects:
-  - {fileID: 0}
+  - {fileID: 4791429662122495968, guid: 06d166d353b5fed4692e0d6ba92a99a4, type: 3}
   gameManager: {fileID: 2839315}
 --- !u!1 &58671245
 GameObject:
