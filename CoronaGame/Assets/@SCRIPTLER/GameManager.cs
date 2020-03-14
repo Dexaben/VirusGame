@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("Game Variables")]
+    private float gameTime = 0.0f;
+    private int killedViruses = 0;
+    private int spawnedViruses = 0;
+
+    [Header("Scripts")]
+    public InputController inputController;
+    public Spawner spawner;
+
+    [Header("GameObjects")]
+    public GameObject GameCanvas;
+    public GameObject SpawnArea;
+    public GameObject DeathArea;
+
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SpawnArea.GetComponent<BoxCollider2D>().size = SpawnArea.GetComponent<RectTransform>().sizeDelta;
+        DeathArea.GetComponent<BoxCollider2D>().size = DeathArea.GetComponent<RectTransform>().sizeDelta;
     }
 }
