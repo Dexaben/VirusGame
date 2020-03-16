@@ -27,7 +27,21 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public UnityEngine.UI.Text TimerText;
     public GameObject GameEnd_Canvas;
-    void Start() //Oyun başlatıldığında.
+
+    [SerializeField]
+    [Range(0.0f, 100.0f)]
+    public float Corona_MotherCorona;
+
+    [Header("Audios")]
+    public List<Audios> audios = new List<Audios>();
+    public struct Audios
+    {
+        public string audioName;
+        public AudioClip audioClip;
+    }
+    private void OnEnable() { Init(); }
+    void Start() { Init(); }
+    void Init() //Oyun başlatıldığında.
     {
         #region configure boxColliders
         SpawnArea.GetComponent<BoxCollider2D>().size = SpawnArea.GetComponent<RectTransform>().sizeDelta;
@@ -39,9 +53,11 @@ public class GameManager : MonoBehaviour
         spawn_timer = 0f;
         spawn_velocity = min_spawn_velocity;
         GameStart();
+        Debug.Log("Başladı");
     }
     private void Update()
     {
+       
         if(timer_continue)
         {
             gameTime += Time.deltaTime;
@@ -50,35 +66,24 @@ public class GameManager : MonoBehaviour
         spawn_timer += Time.deltaTime;
         if(spawn_timer > spawn_velocity)
         {
-            spawner.SpawnVirus(spawner.VirusObjects[Random.Range(0, spawner.VirusObjects.Count)]);
+            GameObject spawnVirus = spawner.VirusObjects[Random.Range(0, spawner.VirusObjects.Count)];
+            float random = Random.Range(0,100);
+            if (random <= Corona_MotherCorona)
+                spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.corona;
+            else
+                spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.motherCorona;
+            
+            spawnVirus.GetComponent<VirusController>().gameManager = this.GetComponent<GameManager>();
+            spawner.SpawnVirus(spawnVirus);
             spawn_timer = 0f;
         }
 
     }
     public void VirusKilled() //Virüs öldürüldüğünde çağırılacak fonksiyon.
     {
+        if (spawn_velocity > 0.5f)
+            spawn_velocity -= 0.2f;
         killedViruses++;
-        switch(killedViruses)
-        {
-            case 5:
-                spawn_velocity = 2.7f;
-                break;
-            case 10:
-                spawn_velocity = 2f;
-                break;
-            case 20:
-                spawn_velocity = 1.6f;
-                break;
-            case 40:
-                spawn_velocity = 1f;
-                break;
-            case 60:
-                spawn_velocity = 0.8f;
-                break;
-            case 100:
-                spawn_velocity = min_spawn_velocity;
-                break;
-        }
     }
     public void VirusAttacked(float health_decrease) //Virus ekranı geçtiğinde çağırılacak fonksiyon.
     {

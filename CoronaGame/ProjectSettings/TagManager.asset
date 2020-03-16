@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SpawnArea
   - DeathArea
+  - Virus
+  - GameManager
   layers:
   - Default
   - TransparentFX
