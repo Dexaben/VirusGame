@@ -7,7 +7,8 @@ public class VirusController : MonoBehaviour
     public enum VirusType
     {
         corona,
-        motherCorona
+        motherCorona,
+        bigCorona
     };
     public VirusType virusType;
     public int virusDamage;
@@ -17,8 +18,11 @@ public class VirusController : MonoBehaviour
     private bool isMove;
    public GameManager gameManager;
     public List<RuntimeAnimatorController> animators = new List<RuntimeAnimatorController>();
+    public AudioSource audioSource;
+    public AudioClip splat;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = this.GetComponent<Animator>();
         switch (virusType)
         {
@@ -32,7 +36,13 @@ public class VirusController : MonoBehaviour
                 animator.runtimeAnimatorController = animators[1];
                 virusSpeed = Random.Range(50f, 70f);
                 virusDamage = 50;
-                virusHealth = 1;
+                virusHealth = 2;
+                break;
+            case VirusType.bigCorona:
+                animator.runtimeAnimatorController = animators[2];
+                virusSpeed = Random.Range(10f, 30f);
+                virusDamage = 80;
+                virusHealth = 3;
                 break;
         }
         this.gameObject.tag = "Virus";
@@ -47,6 +57,8 @@ public class VirusController : MonoBehaviour
     }
     public void VirusDeath()
     {
+        audioSource.pitch = Random.Range(0.6f, 1.2f);
+        audioSource.PlayOneShot(splat);
         gameManager.VirusKilled();
         virusHealth--;
         if(virusHealth <= 0)
@@ -54,6 +66,8 @@ public class VirusController : MonoBehaviour
             isMove = false;
             if (virusType == VirusType.motherCorona)
                 MotherCoronaKilled();
+            if (virusType == VirusType.bigCorona)
+                BigCoronaKilled();
             StartCoroutine("DestroyObject");
         }
     }
@@ -65,11 +79,31 @@ public class VirusController : MonoBehaviour
     }
     private void MotherCoronaKilled()
     {
-        for(int i = 0;i<Random.Range(3,6);i++)
+        StartCoroutine("MotherKilled");
+    }
+    IEnumerator MotherKilled()
+    {
+        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < Random.Range(3, 6); i++)
         {
             GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[0];
             spawnVirus.GetComponent<VirusController>().virusType = VirusType.corona;
-            Instantiate(spawnVirus, this.transform.position+new Vector3(Random.Range(-50f,50f), Random.Range(-50f, 50f)), Quaternion.identity,gameManager.GameCanvas.transform); 
+            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-70f, 70f), Random.Range(-80f, 80f)), Quaternion.identity, gameManager.GameCanvas.transform);
         }
     }
+    private void BigCoronaKilled()
+    {
+        StartCoroutine("BigKilled");
+    }
+    IEnumerator BigKilled()
+    {
+        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < Random.Range(2, 3); i++)
+        {
+            GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[1];
+            spawnVirus.GetComponent<VirusController>().virusType = VirusType.motherCorona;
+            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-50f, 50f), Random.Range(-50f, 50f)), Quaternion.identity, gameManager.GameCanvas.transform);
+        }
+    }
+   
 }

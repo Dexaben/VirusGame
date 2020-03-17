@@ -30,15 +30,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     [Range(0.0f, 100.0f)]
-    public float Corona_MotherCorona;
+    public float Corona_Init;
+    [SerializeField]
+    [Range(0.0f, 100.0f)]
+    public float MotherCorona_Init;
+    [SerializeField]
+    [Range(0.0f, 100.0f)]
+    public float BigCorona_Init;
 
     [Header("Audios")]
-    public List<Audios> audios = new List<Audios>();
-    public struct Audios
-    {
-        public string audioName;
-        public AudioClip audioClip;
-    }
+    public List<AudioClip> audios = new List<AudioClip>();
+    public AudioSource audioSource;
     private void OnEnable() { Init(); }
     void Start() { Init(); }
     void Init() //Oyun başlatıldığında.
@@ -47,6 +49,9 @@ public class GameManager : MonoBehaviour
         SpawnArea.GetComponent<BoxCollider2D>().size = SpawnArea.GetComponent<RectTransform>().sizeDelta;
         DeathArea.GetComponent<BoxCollider2D>().size = DeathArea.GetComponent<RectTransform>().sizeDelta;
         #endregion
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audios[0];
+        audioSource.Play();
         gameTime = 0.0f;
         killedViruses = 0;
         spawnedViruses = 0;
@@ -67,12 +72,17 @@ public class GameManager : MonoBehaviour
         if(spawn_timer > spawn_velocity)
         {
             GameObject spawnVirus = spawner.VirusObjects[Random.Range(0, spawner.VirusObjects.Count)];
-            float random = Random.Range(0,100);
-            if (random <= Corona_MotherCorona)
-                spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.corona;
+            float toplam = (Corona_Init / 100) + (MotherCorona_Init / 100) + (BigCorona_Init / 100);
+            Corona_Init = Mathf.RoundToInt(Corona_Init / toplam);
+            MotherCorona_Init = Mathf.RoundToInt(MotherCorona_Init / toplam);
+            BigCorona_Init = Mathf.RoundToInt(BigCorona_Init / toplam);
+            int random = Random.Range(0,101);
+            if(random  <= Corona_Init)
+            spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.corona;
+            else if(random > Corona_Init && random <= Corona_Init+MotherCorona_Init)
+            spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.motherCorona;
             else
-                spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.motherCorona;
-            
+            spawnVirus.GetComponent<VirusController>().virusType = VirusController.VirusType.bigCorona;
             spawnVirus.GetComponent<VirusController>().gameManager = this.GetComponent<GameManager>();
             spawner.SpawnVirus(spawnVirus);
             spawn_timer = 0f;
