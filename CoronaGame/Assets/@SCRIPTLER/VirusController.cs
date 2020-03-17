@@ -58,7 +58,8 @@ public class VirusController : MonoBehaviour
     }
     IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(0f);
+        animator.SetBool("death", true);
+        yield return new WaitForSeconds(0.4f);
         Destroy(this.gameObject);
     }
     private void MotherCoronaKilled()
