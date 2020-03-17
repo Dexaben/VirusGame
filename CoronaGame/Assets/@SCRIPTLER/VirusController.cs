@@ -16,17 +16,20 @@ public class VirusController : MonoBehaviour
     public Animator animator;
     private bool isMove;
    public GameManager gameManager;
+    public List<RuntimeAnimatorController> animators = new List<RuntimeAnimatorController>();
     void Start()
     {
-        switch(virusType)
+        animator = this.GetComponent<Animator>();
+        switch (virusType)
         {
             case VirusType.corona:
                 virusSpeed = Random.Range(100f, 300f);
                 virusDamage = 10;
+                animator.runtimeAnimatorController = animators[0];
                 virusHealth = 1;
                 break;
             case VirusType.motherCorona:
-
+                animator.runtimeAnimatorController = animators[1];
                 virusSpeed = Random.Range(50f, 70f);
                 virusDamage = 50;
                 virusHealth = 1;
@@ -34,8 +37,6 @@ public class VirusController : MonoBehaviour
         }
         this.gameObject.tag = "Virus";
         isMove = true;
-        animator = this.GetComponent<Animator>();
-        GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>($"VirusSprites/{virusType.ToString().ToLower()}");
     }
     void Update()
     {

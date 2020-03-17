@@ -96,6 +96,9 @@ MonoBehaviour:
   virusHealth: 0
   animator: {fileID: -6407345745245714230}
   gameManager: {fileID: 0}
+  animators:
+  - {fileID: 9100000, guid: 3318924f2451613418ff50b8a9ccd62f, type: 2}
+  - {fileID: 9100000, guid: 6fea3cc77ffa12b48889ccea764fdd39, type: 2}
 --- !u!58 &2397230064734346097
 CircleCollider2D:
   m_ObjectHideFlags: 0
