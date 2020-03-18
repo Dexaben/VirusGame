@@ -158,9 +158,9 @@ MonoBehaviour:
   DeathArea: {fileID: 1412219017}
   TimerText: {fileID: 1010606318}
   GameEnd_Canvas: {fileID: 1990152929}
-  Corona_Init: 89.7
-  MotherCorona_Init: 82.2
-  BigCorona_Init: 88.9
+  Corona_Init: 92.1
+  MotherCorona_Init: 30.5
+  BigCorona_Init: 6.4
   audios:
   - {fileID: 8300000, guid: 6aed1680447738d479362e7a02f75d7c, type: 3}
   audioSource: {fileID: 0}
