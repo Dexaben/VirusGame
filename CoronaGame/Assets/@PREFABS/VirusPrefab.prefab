@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5134a9dedc31a884e9e3df286e5da1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virusType: 2
+  virusType: 0
   virusDamage: 0
   virusSpeed: 0
   virusHealth: 0
@@ -127,7 +127,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9110257800386785415}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1003877882794506542, guid: 57145a2195677614b93f133822e8f6d2,
+  m_Sprite: {fileID: -2930029779311732434, guid: b65cac7376bf50f408a6d0b1258e5d95,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0

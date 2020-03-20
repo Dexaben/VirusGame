@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public UnityEngine.UI.Text TimerText;
+    public UnityEngine.UI.Text ScoreText;
     public GameObject GameEnd_Canvas;
+    public UnityEngine.UI.Slider healthSlider;
 
     [SerializeField]
     [Range(0.0f, 100.0f)]
@@ -41,7 +43,6 @@ public class GameManager : MonoBehaviour
     [Header("Audios")]
     public List<AudioClip> audios = new List<AudioClip>();
     public AudioSource audioSource;
-    private void OnEnable() { Init(); }
     void Start() { Init(); }
     void Init() //Oyun başlatıldığında.
     {
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviour
         spawn_timer = 0f;
         spawn_velocity = min_spawn_velocity;
         GameStart();
-        Debug.Log("Başladı");
     }
     private void Update()
     {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         if(timer_continue)
         {
             gameTime += Time.deltaTime;
-            TimerText.text = gameTime.ToString("F1");
+            TimerText.text = "Timer: "+gameTime.ToString("F0")+"sn";
         }
         spawn_timer += Time.deltaTime;
         if(spawn_timer > spawn_velocity)
@@ -94,10 +94,14 @@ public class GameManager : MonoBehaviour
         if (spawn_velocity > 0.5f)
             spawn_velocity -= 0.2f;
         killedViruses++;
+        ScoreText.text = "Score: " + killedViruses;
     }
     public void VirusAttacked(float health_decrease) //Virus ekranı geçtiğinde çağırılacak fonksiyon.
     {
+        if(spawn_velocity< 3f)
+        spawn_velocity += 0.7f;
         health -= health_decrease;
+        healthSlider.value = health;
         if (health <= 0)
             GameEnd();
     }
@@ -110,6 +114,8 @@ public class GameManager : MonoBehaviour
     public void GameStart() //Oyun başlama durumuna geçtiğinde.
     {
         health = 100;
+        healthSlider.value = health;
+        ScoreText.text = "Score: " + killedViruses;
         spawner.spawner_enable = true;
         timer_continue = true;
         if (GameEnd_Canvas.activeInHierarchy)

@@ -36,13 +36,13 @@ public class VirusController : MonoBehaviour
                 animator.runtimeAnimatorController = animators[1];
                 virusSpeed = Random.Range(50f, 70f);
                 virusDamage = 50;
-                virusHealth = 2;
+                virusHealth = 1;
                 break;
             case VirusType.bigCorona:
                 animator.runtimeAnimatorController = animators[2];
                 virusSpeed = Random.Range(10f, 30f);
                 virusDamage = 80;
-                virusHealth = 3;
+                virusHealth = 1;
                 break;
         }
         this.gameObject.tag = "Virus";
@@ -65,45 +65,42 @@ public class VirusController : MonoBehaviour
         {
             isMove = false;
             if (virusType == VirusType.motherCorona)
-                MotherCoronaKilled();
+                StartCoroutine("MotherKilled");
             if (virusType == VirusType.bigCorona)
-                BigCoronaKilled();
-            StartCoroutine("DestroyObject");
+                StartCoroutine("BigKilled");
+            if (virusType == VirusType.corona)
+            StartCoroutine("CoronaKilled");
         }
     }
-    IEnumerator DestroyObject()
+    IEnumerator CoronaKilled()
     {
         animator.SetBool("death", true);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         Destroy(this.gameObject);
-    }
-    private void MotherCoronaKilled()
-    {
-        StartCoroutine("MotherKilled");
     }
     IEnumerator MotherKilled()
     {
-        yield return new WaitForSeconds(0.3f);
+        animator.SetBool("death", true);
+        yield return new WaitForSeconds(0.36f);
         for (int i = 0; i < Random.Range(3, 6); i++)
         {
             GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[0];
             spawnVirus.GetComponent<VirusController>().virusType = VirusType.corona;
             Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-70f, 70f), Random.Range(-80f, 80f)), Quaternion.identity, gameManager.GameCanvas.transform);
         }
-    }
-    private void BigCoronaKilled()
-    {
-        StartCoroutine("BigKilled");
+        Destroy(this.gameObject);
     }
     IEnumerator BigKilled()
     {
-        yield return new WaitForSeconds(0.3f);
+        animator.SetBool("death", true);
+        yield return new WaitForSeconds(0.36f);
         for (int i = 0; i < Random.Range(2, 3); i++)
         {
             GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[0];
             spawnVirus.GetComponent<VirusController>().virusType = VirusType.motherCorona;
             Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-50f, 50f), Random.Range(-50f, 50f)), Quaternion.identity, gameManager.GameCanvas.transform);
         }
+        Destroy(this.gameObject);
     }
    
 }

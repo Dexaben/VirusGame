@@ -12,12 +12,13 @@ public class DeathArea : MonoBehaviour
         if (gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Virus")
+        if (other.tag == "Virus")
         {
-            Destroy(other.gameObject);
             gameManager.VirusAttacked(other.GetComponent<VirusController>().virusDamage);
+            Destroy(other.gameObject);
         }
+
     }
 }
