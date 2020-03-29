@@ -91,15 +91,15 @@ public class GameManager : MonoBehaviour
     }
     public void VirusKilled() //Virüs öldürüldüğünde çağırılacak fonksiyon.
     {
-        if (spawn_velocity > 0.5f)
-            spawn_velocity -= 0.2f;
+        if (spawn_velocity > 0.9f)
+            spawn_velocity -= 0.1f;
         killedViruses++;
         ScoreText.text = "Score: " + killedViruses;
     }
     public void VirusAttacked(float health_decrease) //Virus ekranı geçtiğinde çağırılacak fonksiyon.
     {
-        if(spawn_velocity< 3f)
-        spawn_velocity += 0.7f;
+        if(spawn_velocity<3f)
+        spawn_velocity += 0.8f;
         health -= health_decrease;
         healthSlider.value = health;
         if (health <= 0)

@@ -161,8 +161,8 @@ MonoBehaviour:
   GameEnd_Canvas: {fileID: 1990152929}
   healthSlider: {fileID: 1185568990}
   Corona_Init: 92.1
-  MotherCorona_Init: 10.8
-  BigCorona_Init: 2.5
+  MotherCorona_Init: 14
+  BigCorona_Init: 6
   audios:
   - {fileID: 8300000, guid: 6aed1680447738d479362e7a02f75d7c, type: 3}
   audioSource: {fileID: 0}
@@ -1787,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1990152930
 RectTransform:
   m_ObjectHideFlags: 0
