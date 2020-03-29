@@ -19,7 +19,7 @@ public class VirusController : MonoBehaviour
    public GameManager gameManager;
     public List<RuntimeAnimatorController> animators = new List<RuntimeAnimatorController>();
     public AudioSource audioSource;
-    public AudioClip splat;
+    public AudioClip splat,splat2,splat3;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -58,7 +58,6 @@ public class VirusController : MonoBehaviour
     public void VirusDeath()
     {
         audioSource.pitch = Random.Range(0.6f, 1.2f);
-        audioSource.PlayOneShot(splat);
         gameManager.VirusKilled();
         virusHealth--;
         if(virusHealth <= 0)
@@ -74,12 +73,14 @@ public class VirusController : MonoBehaviour
     }
     IEnumerator CoronaKilled()
     {
+        audioSource.PlayOneShot(splat);
         animator.SetBool("death", true);
         yield return new WaitForSeconds(0.35f);
         Destroy(this.gameObject);
     }
     IEnumerator MotherKilled()
     {
+        audioSource.PlayOneShot(splat2);
         animator.SetBool("death", true);
         yield return new WaitForSeconds(0.36f);
         for (int i = 0; i < Random.Range(3, 6); i++)
@@ -92,6 +93,7 @@ public class VirusController : MonoBehaviour
     }
     IEnumerator BigKilled()
     {
+        audioSource.PlayOneShot(splat3);
         animator.SetBool("death", true);
         yield return new WaitForSeconds(0.36f);
         for (int i = 0; i < Random.Range(2, 3); i++)

@@ -103,6 +103,8 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 02b45024b2a034640b64aa835bca2aa3, type: 2}
   audioSource: {fileID: 0}
   splat: {fileID: 8300000, guid: 34cbf6e17bda4544f82503f5c409961e, type: 3}
+  splat2: {fileID: 8300000, guid: abc2730a61cdefb438a79b360edcf140, type: 3}
+  splat3: {fileID: 8300000, guid: 44d09f44734b09148a0ebfcee0e86c3a, type: 3}
 --- !u!58 &2397230064734346097
 CircleCollider2D:
   m_ObjectHideFlags: 0
