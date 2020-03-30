@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     }
     public void VirusKilled() //Virüs öldürüldüğünde çağırılacak fonksiyon.
     {
-        if (spawn_velocity > 0.9f)
+        if (spawn_velocity > 0.6f)
             spawn_velocity -= 0.1f;
         killedViruses++;
         ScoreText.text = "Score: " + killedViruses;

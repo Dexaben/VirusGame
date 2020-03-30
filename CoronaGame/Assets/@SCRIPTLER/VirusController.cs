@@ -68,7 +68,7 @@ public class VirusController : MonoBehaviour
             if (virusType == VirusType.bigCorona)
                 StartCoroutine("BigKilled");
             if (virusType == VirusType.corona)
-            StartCoroutine("CoronaKilled");
+                StartCoroutine("CoronaKilled");
         }
     }
     IEnumerator CoronaKilled()
@@ -87,7 +87,7 @@ public class VirusController : MonoBehaviour
         {
             GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[0];
             spawnVirus.GetComponent<VirusController>().virusType = VirusType.corona;
-            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-70f, 70f), Random.Range(-80f, 80f)), Quaternion.identity, gameManager.GameCanvas.transform);
+            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-90f, 90f), Random.Range(-90f, 90f)), Quaternion.identity, gameManager.GameCanvas.transform);
         }
         Destroy(this.gameObject);
     }
@@ -100,7 +100,7 @@ public class VirusController : MonoBehaviour
         {
             GameObject spawnVirus = gameManager.spawner.GetComponent<Spawner>().VirusObjects[0];
             spawnVirus.GetComponent<VirusController>().virusType = VirusType.motherCorona;
-            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-50f, 50f), Random.Range(-50f, 50f)), Quaternion.identity, gameManager.GameCanvas.transform);
+            Instantiate(spawnVirus, this.transform.position + new Vector3(Random.Range(-60f, 60f), Random.Range(-60f, 60f)), Quaternion.identity, gameManager.GameCanvas.transform);
         }
         Destroy(this.gameObject);
     }
