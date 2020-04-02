@@ -8,5 +8,7 @@ public class VirusDestroyer : MonoBehaviour
     {
         if (collision.tag == "Virus")
             collision.GetComponent<VirusController>().VirusDeath();
+        if (collision.tag == "notVirus")
+            collision.GetComponent<notVirusController>().VirusDeath();
     }
 }

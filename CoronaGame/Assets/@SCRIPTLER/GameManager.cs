@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private float max_spawn_velocity = 0.5f;
     private float min_spawn_velocity = 3f;
     private bool timer_continue = true;
+    private float medicine_timer = 0f;
+    private float medicine_velocity = 13f;
 
     [Header("Scripts")]
     public InputController inputController;
@@ -69,6 +71,18 @@ public class GameManager : MonoBehaviour
             TimerText.text = "Timer: "+gameTime.ToString("F0")+"sn";
         }
         spawn_timer += Time.deltaTime;
+        medicine_timer += Time.deltaTime;
+        if (medicine_timer > medicine_velocity)
+        {
+            for (int i = 0; i < Random.Range(1,4); i++)
+            {
+                GameObject medicineObj = spawner.notVirusObjects[Random.Range(0, spawner.VirusObjects.Count)];
+                medicineObj.GetComponent<notVirusController>().notvirus_Type = notVirusController.notVirusType.pill;
+                medicineObj.GetComponent<notVirusController>().gameManager = this.GetComponent<GameManager>();
+                spawner.SpawnVirus(medicineObj);
+            }
+            medicine_timer = 0f;
+        }
         if(spawn_timer > spawn_velocity)
         {
             GameObject spawnVirus = spawner.VirusObjects[Random.Range(0, spawner.VirusObjects.Count)];

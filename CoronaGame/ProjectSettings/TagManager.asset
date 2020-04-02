@@ -8,6 +8,7 @@ TagManager:
   - DeathArea
   - Virus
   - GameManager
+  - notVirus
   layers:
   - Default
   - TransparentFX

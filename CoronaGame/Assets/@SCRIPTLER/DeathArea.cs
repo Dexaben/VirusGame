@@ -19,6 +19,10 @@ public class DeathArea : MonoBehaviour
             gameManager.VirusAttacked(other.GetComponent<VirusController>().virusDamage);
             Destroy(other.gameObject);
         }
+        else if(other.tag == "notVirus")
+        {
+            Destroy(other.gameObject);
+        }
 
     }
 }
